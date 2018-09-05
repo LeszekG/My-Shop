@@ -4,13 +4,14 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{C2A57C5F-1D14-4D1D-A275-E518449EA314}</ProjectGuid>
+    <ProjectGuid>{F83E38B0-D224-495D-A3CF-0A48864E17CD}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>MyShop.DataAcces.SQL</RootNamespace>
-    <AssemblyName>MyShop.DataAcces.SQL</AssemblyName>
+    <RootNamespace>MyShop.DataAccess.SQL</RootNamespace>
+    <AssemblyName>MyShop.DataAccess.SQL</AssemblyName>
     <TargetFrameworkVersion>v4.6.1</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <Deterministic>true</Deterministic>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>

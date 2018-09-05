@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // Ogólne informacje o zestawie są kontrolowane poprzez następujący 
 // zestaw atrybutów. Zmień wartości tych atrybutów, aby zmodyfikować informacje
 // powiązane z zestawem.
-[assembly: AssemblyTitle("MyShop.DataAccess,InMemory")]
+[assembly: AssemblyTitle("MyShop.DataAccess.InMemory")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("MyShop.DataAccess,InMemory")]
+[assembly: AssemblyProduct("MyShop.DataAccess.InMemory")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // Następujący identyfikator GUID jest identyfikatorem biblioteki typów w przypadku udostępnienia tego projektu w modelu COM
-[assembly: Guid("db49de41-c5c6-427a-a122-f9bb8bb7cc8d")]
+[assembly: Guid("e342bb5c-a6f9-49b8-ad23-3a39d7d697aa")]
 
 // Informacje o wersji zestawu zawierają następujące cztery wartości:
 //
