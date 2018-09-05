@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // Ogólne informacje o zestawie są kontrolowane poprzez następujący 
 // zestaw atrybutów. Zmień wartości tych atrybutów, aby zmodyfikować informacje
 // powiązane z zestawem.
-[assembly: AssemblyTitle("MyShop.DataAcces.SQL")]
+[assembly: AssemblyTitle("MyShop.DataAccess.SQL")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("MyShop.DataAcces.SQL")]
+[assembly: AssemblyProduct("MyShop.DataAccess.SQL")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
@@ -20,7 +20,7 @@ using System.Runtime.InteropServices;
 [assembly: ComVisible(false)]
 
 // Następujący identyfikator GUID jest identyfikatorem biblioteki typów w przypadku udostępnienia tego projektu w modelu COM
-[assembly: Guid("c2a57c5f-1d14-4d1d-a275-e518449ea314")]
+[assembly: Guid("f83e38b0-d224-495d-a3cf-0a48864e17cd")]
 
 // Informacje o wersji zestawu zawierają następujące cztery wartości:
 //
