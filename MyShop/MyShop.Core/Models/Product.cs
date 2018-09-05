@@ -9,6 +9,7 @@ namespace MyShop.Core.Models
 {
     public class Product
     {
+        [Key]
         public String Id { get; set; }
 
         [StringLength(20)]
