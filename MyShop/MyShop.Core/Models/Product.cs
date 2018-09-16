@@ -17,7 +17,7 @@ namespace MyShop.Core.Models
         public string Name { get; set; }
         public string Description { get; set; }
 
-        [Range(1, 100)]
+        [Range(0, 100)]
         [DataType(DataType.Currency)]
         [Display(Name = "Cena")]
         public decimal Price{ get; set; }
