@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using MyShop.DataAccess.InMemory;
 using MyShop.Core.Models;
+using MyShop.Core.ViewModels;
 
 
 
@@ -15,17 +16,23 @@ namespace MyShop.WebUI.Controllers
     {
 
         ProductRepository context;
+        ProductCategoryRepository productCategories;
 
         public ProductManagerController() {
             context = new ProductRepository();
+            productCategories = new ProductCategoryRepository();
         }
 
 
         // GET: ProductManager
         public ActionResult Index()
         {
+            List<ProductWithCategoryViewModel> pvml = new List<ProductWithCategoryViewModel>();
             List<Product> products = context.Collection().ToList();
-            return View(products);
+            foreach (Product p in products)
+                pvml.Add( new ProductWithCategoryViewModel(p, productCategories.Find(p.Category) ) );
+
+            return View(pvml);
         }
 
         // GET: ProductManager/Details/5
@@ -41,7 +48,7 @@ namespace MyShop.WebUI.Controllers
         // GET: ProductManager/Create
         public ActionResult Create()
         {
-            Product p = new Product();
+            ProductManagerViewModel p = new ProductManagerViewModel(new Product(), productCategories.Collection().ToList() );
             return View( p );
         }
 
@@ -59,30 +66,32 @@ namespace MyShop.WebUI.Controllers
         }
 
         // GET: ProductManager/Edit/5
-        public ActionResult Edit(string id)
-        {
+        public ActionResult Edit(string id) {
             Product p = context.Find(id);
+
             if (p == null)
                 return HttpNotFound();
-            else
-                return View( p );
+            else {
+                ProductManagerViewModel pvm = new ProductManagerViewModel(p, productCategories.Collection().ToList());
+                return View(pvm);
+            }
         }
 
         // POST: ProductManager/Edit/5
         [HttpPost]
-        public ActionResult Edit(Product p, string Id)
+        public ActionResult Edit(ProductManagerViewModel pvm, string Id)
         {
-            Product pToEdit = context.Find(Id);
+            Product pToEdit = context.Find(pvm.Product.Id);
             if (pToEdit == null)
                 return HttpNotFound();
             else {
                 if( !ModelState.IsValid)
-                    return View(p);
-                pToEdit.Category = p.Category;
-                pToEdit.Description = p.Description;
-                pToEdit.Image = p.Image;
-                pToEdit.Name = p.Name;
-                pToEdit.Price = p.Price;
+                    return View(pvm);
+                pToEdit.Category = pvm.Product.Category;
+                pToEdit.Description = pvm.Product.Description;
+                pToEdit.Image = pvm.Product.Image;
+                pToEdit.Name = pvm.Product.Name;
+                pToEdit.Price = pvm.Product.Price;
 
                 context.Commit();
 
