@@ -24,8 +24,12 @@ namespace MyShop.WebUI.Controllers
         }
 
         // GET: ProductManager/Details/5
-        public ActionResult Details(int id) {
-            return View();
+        public ActionResult Details(string id) {
+            ProductCategory p = context.Find(id);
+            if (p == null)
+                return HttpNotFound();
+            else
+                return View(p);
         }
 
         // GET: ProductManager/Create
