@@ -18,7 +18,7 @@ namespace MyShop.WebUI
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
-            Thread.CurrentThread.CurrentCulture = new CultureInfo("pl-PL");
+            /*Thread.CurrentThread.CurrentCulture = new CultureInfo("pl-PL");*/
         }
 
     }
