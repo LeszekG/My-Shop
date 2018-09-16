@@ -15,12 +15,18 @@ namespace MyShop.DataAccess.InMemory
 
         public ProductCategoryRepository() {
             productCategories = cache["productCategories"] as List<ProductCategory>;
-            if (productCategories == null)
+            if (productCategories == null) {
                 productCategories = new List<ProductCategory>();
+                Insert(new ProductCategory() { Category = "cat 1" });
+                Insert(new ProductCategory() { Category = "cat 2" });
+                Commit();
+            }
+
+
         }
 
         public void Commit() {
-            cache["products"] = productCategories;
+            cache["productCategories"] = productCategories;
         }
 
         public void Insert(ProductCategory p) {

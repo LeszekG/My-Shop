@@ -36,11 +36,11 @@ namespace MyShop.WebUI.Controllers
 
         // POST: ProductManager/Create
         [HttpPost]
-        public ActionResult Create(ProductCategory category) {
+        public ActionResult Create(ProductCategory p) {
             if (!ModelState.IsValid)
-                return View(category);
+                return View(p);
             else {
-                context.Insert(category);
+                context.Insert(p);
                 context.Commit();
 
                 return RedirectToAction("Index");

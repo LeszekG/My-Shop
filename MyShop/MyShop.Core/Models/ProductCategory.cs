@@ -10,12 +10,12 @@ namespace MyShop.Core.Models
     public class ProductCategory
     {
         [Key]
-        public string Id { get; set; }
+        public String Id { get; set; }
 
-        [StringLength(20)]
-        [Display(Name = "Product group name")]
-        [Required]
-        public string Category { get; set; }
+        //[StringLength(20)]
+        //[Display(Name = "Product group name")]
+//        [Required]
+        public String Category { get; set; }
 
         public ProductCategory(){
             this.Id = Guid.NewGuid().ToString();
