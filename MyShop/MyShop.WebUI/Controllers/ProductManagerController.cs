@@ -6,21 +6,19 @@ using System.Web.Mvc;
 using MyShop.DataAccess.InMemory;
 using MyShop.Core.Models;
 using MyShop.Core.ViewModels;
-
-
-
+using MyShop.Core.Contracts;
 
 namespace MyShop.WebUI.Controllers
 {
     public class ProductManagerController : Controller
     {
 
-        InMemoryRepository<Product> context;
-        InMemoryRepository<ProductCategory> productCategories;
+        IRepository<Product> productContext;
+        IRepository<ProductCategory> productCategoriesContext;
 
-        public ProductManagerController() {
-            context = new InMemoryRepository<Product>();
-            productCategories = new InMemoryRepository<ProductCategory>();
+        public ProductManagerController(IRepository<Product> _productContext, IRepository<ProductCategory> _productCategoriesContext) {
+            this.productContext = _productContext;
+            this.productCategoriesContext = _productCategoriesContext;
         }
 
 
@@ -28,9 +26,9 @@ namespace MyShop.WebUI.Controllers
         public ActionResult Index()
         {
             List<ProductWithCategoryViewModel> pvml = new List<ProductWithCategoryViewModel>();
-            List<Product> products = context.Collection().ToList();
+            List<Product> products = productContext.Collection().ToList();
             foreach (Product p in products)
-                pvml.Add( new ProductWithCategoryViewModel(p, productCategories.Find(p.Category) ) );
+                pvml.Add( new ProductWithCategoryViewModel(p, productCategoriesContext.Find(p.Category) ) );
 
             return View(pvml);
         }
@@ -38,7 +36,7 @@ namespace MyShop.WebUI.Controllers
         // GET: ProductManager/Details/5
         public ActionResult Details(string id)
         {
-            Product p = context.Find(id);
+            Product p = productContext.Find(id);
             if (p == null)
                 return HttpNotFound();
             else
@@ -48,7 +46,7 @@ namespace MyShop.WebUI.Controllers
         // GET: ProductManager/Create
         public ActionResult Create()
         {
-            ProductManagerViewModel p = new ProductManagerViewModel(new Product(), productCategories.Collection().ToList() );
+            ProductManagerViewModel p = new ProductManagerViewModel(new Product(), productCategoriesContext.Collection().ToList() );
             return View( p );
         }
 
@@ -58,8 +56,8 @@ namespace MyShop.WebUI.Controllers
             if (!ModelState.IsValid)
                 return View(product);
             else {
-                context.Insert(product);
-                context.Commit();
+                productContext.Insert(product);
+                productContext.Commit();
 
                 return RedirectToAction("Index");
             }
@@ -67,12 +65,12 @@ namespace MyShop.WebUI.Controllers
 
         // GET: ProductManager/Edit/5
         public ActionResult Edit(string id) {
-            Product p = context.Find(id);
+            Product p = productContext.Find(id);
 
             if (p == null)
                 return HttpNotFound();
             else {
-                ProductManagerViewModel pvm = new ProductManagerViewModel(p, productCategories.Collection().ToList());
+                ProductManagerViewModel pvm = new ProductManagerViewModel(p, productCategoriesContext.Collection().ToList());
                 return View(pvm);
             }
         }
@@ -81,7 +79,7 @@ namespace MyShop.WebUI.Controllers
         [HttpPost]
         public ActionResult Edit(ProductManagerViewModel pvm, string Id)
         {
-            Product pToEdit = context.Find(pvm.Product.Id);
+            Product pToEdit = productContext.Find(pvm.Product.Id);
             if (pToEdit == null)
                 return HttpNotFound();
             else {
@@ -93,7 +91,7 @@ namespace MyShop.WebUI.Controllers
                 pToEdit.Name = pvm.Product.Name;
                 pToEdit.Price = pvm.Product.Price;
 
-                context.Commit();
+                productContext.Commit();
 
                 return RedirectToAction("Index");
 
@@ -104,7 +102,7 @@ namespace MyShop.WebUI.Controllers
         // GET: ProductManager/Delete/5
         public ActionResult Delete(string id)
         {
-            Product p = context.Find(id);
+            Product p = productContext.Find(id);
             if (p == null)
                 return HttpNotFound();
             else {
@@ -118,12 +116,12 @@ namespace MyShop.WebUI.Controllers
         [ActionName("Delete")]
         public ActionResult Delete(Product p, string id)
         {
-            Product pToDelete = context.Find(id);
+            Product pToDelete = productContext.Find(id);
             if (pToDelete == null)
                 return HttpNotFound();
             else {
-                context.Delete(id);
-                context.Commit();
+                productContext.Delete(id);
+                productContext.Commit();
                 return RedirectToAction("Index");
             }
         }

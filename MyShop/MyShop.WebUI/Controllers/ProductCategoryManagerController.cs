@@ -5,27 +5,28 @@ using System.Web;
 using System.Web.Mvc;
 using MyShop.DataAccess.InMemory;
 using MyShop.Core.Models;
+using MyShop.Core.Contracts;
 
 namespace MyShop.WebUI.Controllers
 {
     public class ProductCategoryManagerController : Controller
     {
-        InMemoryRepository<ProductCategory> context;
+        IRepository<ProductCategory> productCategoriesContext;
 
-        public ProductCategoryManagerController() {
-            context = new InMemoryRepository<ProductCategory>();
+        public ProductCategoryManagerController(IRepository<ProductCategory>  _productCategoriesContext) {
+            productCategoriesContext = _productCategoriesContext;
         }
 
 
         // GET: ProductManager
         public ActionResult Index() {
-            List<ProductCategory> categories = context.Collection().ToList();
+            List<ProductCategory> categories = productCategoriesContext.Collection().ToList();
             return View(categories);
         }
 
         // GET: ProductManager/Details/5
         public ActionResult Details(string id) {
-            ProductCategory p = context.Find(id);
+            ProductCategory p = productCategoriesContext.Find(id);
             if (p == null)
                 return HttpNotFound();
             else
@@ -44,8 +45,8 @@ namespace MyShop.WebUI.Controllers
             if (!ModelState.IsValid)
                 return View(p);
             else {
-                context.Insert(p);
-                context.Commit();
+                productCategoriesContext.Insert(p);
+                productCategoriesContext.Commit();
 
                 return RedirectToAction("Index");
             }
@@ -53,7 +54,7 @@ namespace MyShop.WebUI.Controllers
 
         // GET: ProductManager/Edit/5
         public ActionResult Edit(string id) {
-            ProductCategory p = context.Find(id);
+            ProductCategory p = productCategoriesContext.Find(id);
             if (p == null)
                 return HttpNotFound();
             else
@@ -63,14 +64,14 @@ namespace MyShop.WebUI.Controllers
         // POST: ProductManager/Edit/5
         [HttpPost]
         public ActionResult Edit(ProductCategory p, string Id) {
-            ProductCategory pToEdit = context.Find(Id);
+            ProductCategory pToEdit = productCategoriesContext.Find(Id);
             if (pToEdit == null)
                 return HttpNotFound();
             else {
                 if (!ModelState.IsValid)
                     return View(p);
                 pToEdit.Category = p.Category;
-                context.Commit();
+                productCategoriesContext.Commit();
 
                 return RedirectToAction("Index");
 
@@ -80,7 +81,7 @@ namespace MyShop.WebUI.Controllers
 
         // GET: ProductManager/Delete/5
         public ActionResult Delete(string id) {
-            ProductCategory p = context.Find(id);
+            ProductCategory p = productCategoriesContext.Find(id);
             if (p == null)
                 return HttpNotFound();
             else {
@@ -93,12 +94,12 @@ namespace MyShop.WebUI.Controllers
         [HttpPost]
         [ActionName("Delete")]
         public ActionResult Delete(ProductCategory p, string id) {
-            ProductCategory pToDelete = context.Find(id);
+            ProductCategory pToDelete = productCategoriesContext.Find(id);
             if (pToDelete == null)
                 return HttpNotFound();
             else {
-                context.Delete(id);
-                context.Commit();
+                productCategoriesContext.Delete(id);
+                productCategoriesContext.Commit();
                 return RedirectToAction("Index");
             }
         }
