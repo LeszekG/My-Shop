@@ -360,6 +360,10 @@
       <Project>{e342bb5c-a6f9-49b8-ad23-3a39d7d697aa}</Project>
       <Name>MyShop.DataAccess.InMemory</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MyShop.DataAccess.SQL\MyShop.DataAccess.SQL.csproj">
+      <Project>{f83e38b0-d224-495d-a3cf-0a48864e17cd}</Project>
+      <Name>MyShop.DataAccess.SQL</Name>
+    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <TypeScriptCompile Include="Scripts\index.d.ts" />
