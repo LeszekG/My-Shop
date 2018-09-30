@@ -7,6 +7,7 @@ using MyShop.DataAccess.InMemory;
 using MyShop.Core.Models;
 using MyShop.Core.ViewModels;
 using MyShop.Core.Contracts;
+using System.IO;
 
 namespace MyShop.WebUI.Controllers
 {
@@ -52,11 +53,18 @@ namespace MyShop.WebUI.Controllers
 
         // POST: ProductManager/Create
         [HttpPost]
-        public ActionResult Create(Product product){
-            if (!ModelState.IsValid)
-                return View(product);
+        public ActionResult Create(ProductManagerViewModel pmvm, HttpPostedFileBase file) {
+            if (!ModelState.IsValid) {
+                pmvm.Categories = productCategoriesContext.Collection().ToList();
+                return View(pmvm);
+            }
             else {
-                productContext.Insert(product);
+                if (file != null){
+                    pmvm.Product.Image = pmvm.Product.Id + Path.GetExtension(file.FileName);
+                    file.SaveAs(Server.MapPath("//Content//ProductImages//") + pmvm.Product.Image);
+                }
+
+                productContext.Insert(pmvm.Product);
                 productContext.Commit();
 
                 return RedirectToAction("Index");
@@ -77,7 +85,7 @@ namespace MyShop.WebUI.Controllers
 
         // POST: ProductManager/Edit/5
         [HttpPost]
-        public ActionResult Edit(ProductManagerViewModel pvm, string Id)
+        public ActionResult Edit(ProductManagerViewModel pvm, string Id, HttpPostedFileBase file)
         {
             Product pToEdit = productContext.Find(pvm.Product.Id);
             if (pToEdit == null)
@@ -85,9 +93,13 @@ namespace MyShop.WebUI.Controllers
             else {
                 if( !ModelState.IsValid)
                     return View(pvm);
+                if (file != null)
+                {
+                    pToEdit.Image = pToEdit.Id + Path.GetExtension(file.FileName);
+                    file.SaveAs(Server.MapPath("//Content//ProductImages//") + pToEdit.Image);
+                }
                 pToEdit.Category = pvm.Product.Category;
                 pToEdit.Description = pvm.Product.Description;
-                pToEdit.Image = pvm.Product.Image;
                 pToEdit.Name = pvm.Product.Name;
                 pToEdit.Price = pvm.Product.Price;
 
