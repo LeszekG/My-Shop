@@ -20,15 +20,25 @@ namespace MyShop.WebUI.Controllers
             this.productCategoriesContext = _productCategoriesContext;
         }
 
-        public ActionResult Index()
+        public ActionResult Index(string Category = null)
         {
-            List<ProductWithCategoryViewModel> pvml = new List<ProductWithCategoryViewModel>();
-            List<Product> products = productContext.Collection().ToList();
-            foreach (Product p in products)
-                pvml.Add(new ProductWithCategoryViewModel(p, productCategoriesContext.Find(p.Category)));
+            List<Product> products;
 
-            return View(pvml);
 
+
+            if (Category == null)
+                products = productContext.Collection().ToList();
+            else 
+//                ProductCategory pcat = productCategoriesContext.Collection().FirstOrDefault(pc => pc.Category == Category);
+                
+                products = productContext.Collection().Where(p => p.Category == Category).ToList();
+            
+
+            ProducListViewModel model = new ProducListViewModel();
+            model.Products = products;
+            model.Categories = productCategoriesContext.Collection().ToList();
+
+            return View(model);
         }
 
         public ActionResult Details(string Id)
