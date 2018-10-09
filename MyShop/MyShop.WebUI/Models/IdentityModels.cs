@@ -30,8 +30,8 @@ namespace MyShop.WebUI.Models
             return new ApplicationDbContext();
         }
 
-        public System.Data.Entity.DbSet<MyShop.Core.Models.ProductCategory> ProductCategories { get; set; }
+//        public System.Data.Entity.DbSet<MyShop.Core.Models.ProductCategory> ProductCategories { get; set; }
 
-        public System.Data.Entity.DbSet<MyShop.Core.Models.Product> Products { get; set; }
+//        public System.Data.Entity.DbSet<MyShop.Core.Models.Product> Products { get; set; }
     }
 }

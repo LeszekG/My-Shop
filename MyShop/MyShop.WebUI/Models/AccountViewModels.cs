@@ -79,6 +79,36 @@ namespace MyShop.WebUI.Models
         [Display(Name = "Potwierdź hasło")]
         [Compare("Password", ErrorMessage = "Hasło i jego potwierdzenie są niezgodne.")]
         public string ConfirmPassword { get; set; }
+
+        [Required]
+        [StringLength(50)]
+        [Display(Name = "Imię")]
+        public string FirstName { get; set; }
+
+        [Required]
+        [StringLength(100)]
+        [Display(Name = "Nazwisko")]
+        public string LastName { get; set; }
+
+        [Required]
+        [StringLength(100)]
+        [Display(Name = "Ulica, nr domu/lokalu")]
+        public string Street { get; set; }
+
+        [Required]
+        [StringLength(100)]
+        [Display(Name = "Miasto")]
+        public string City { get; set; }
+
+        [StringLength(100)]
+        [Display(Name = "Województwo")]
+        public string State { get; set; }
+
+        [Required]
+        [StringLength(6)]
+        [Display(Name = "Kod")]
+        public string ZipCode { get; set; }
+
     }
 
     public class ResetPasswordViewModel
