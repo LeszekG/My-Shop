@@ -12,8 +12,8 @@ namespace MyShop.DataAccess.InMemory
     {
         ObjectCache cache = MemoryCache.Default;
         List<ProductCategory> productCategories;
-        private Product product;
-        private ProductCategoryRepository productCategories1;
+        //private Product product;
+        //private ProductCategoryRepository productCategories1;
 
         public ProductCategoryRepository() {
             productCategories = cache["productCategories"] as List<ProductCategory>;
