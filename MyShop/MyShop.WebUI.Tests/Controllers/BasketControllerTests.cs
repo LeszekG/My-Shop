@@ -28,7 +28,7 @@ namespace MyShop.WebUI.Tests.Controllers
 
             IBasketService basketService = new BasketService(products, baskets);
             IOrderService orderService = new OrderService(orders);
-            var controller = new BasketController(basketService, orderService/*, customers*/);
+            var controller = new BasketController(basketService, orderService, customers);
             controller.ControllerContext = new System.Web.Mvc.ControllerContext(httpContext, new System.Web.Routing.RouteData(), controller);
 
             //Act
@@ -61,7 +61,7 @@ namespace MyShop.WebUI.Tests.Controllers
 
             IBasketService basketService = new BasketService(products, baskets);
             IOrderService orderService = new OrderService(orders);
-            var controller = new BasketController(basketService, orderService/*, customers*/);
+            var controller = new BasketController(basketService, orderService, customers);
 
             var httpContext = new MockHttpContext();
             httpContext.Request.Cookies.Add(new System.Web.HttpCookie("eCommerceBasket") { Value = basket.Id });
@@ -101,7 +101,7 @@ namespace MyShop.WebUI.Tests.Controllers
             IPrincipal FakeUser = new GenericPrincipal(new GenericIdentity("brett.hargreaves@gmail.com", "Forms"), null);
 
 
-            var controller = new BasketController(basketService, orderService/*, customers*/);
+            var controller = new BasketController(basketService, orderService, customers);
             var httpContext = new MockHttpContext();
             httpContext.User = FakeUser;
             httpContext.Request.Cookies.Add(new System.Web.HttpCookie("eCommerceBasket") {
