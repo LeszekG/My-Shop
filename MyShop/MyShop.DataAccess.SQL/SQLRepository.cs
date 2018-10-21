@@ -48,8 +48,7 @@ namespace MyShop.DataAccess.SQL
             dbSet.Add(t);
         }
 
-        public void Update(T t)
-        {
+        public void Update(T t) { 
             dbSet.Attach(t);
             context.Entry(t).State = EntityState.Modified;
         }
