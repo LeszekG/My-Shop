@@ -26,7 +26,9 @@
                     <li>@Html.ActionLink("Strona główna", "Index", "Home")</li>
                     <li>@Html.ActionLink("Informacje", "About", "Home")</li>
                     <li>@Html.ActionLink("Kontakt", "Contact", "Home")</li>
-                    <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
+                    @if(Request.IsAuthenticated && User.IsInRole("Admin")) { }
+                        <li>@Html.ActionLink("Admin", "Index", "Admin")</li>
+                    }
 
 
                 </ul>
